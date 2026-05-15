@@ -1,12 +1,15 @@
 import { Module } from "@nestjs/common";
 import { MongooseModule } from "@nestjs/mongoose";
 import { ConfigModule, ConfigService } from "@nestjs/config";
+
 import { ItemsModule } from "./items/items.module";
+import { ContactModule } from "./contact.module";
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       envFilePath: ".env.local",
+      isGlobal: true,
     }),
     MongooseModule.forRootAsync({
       imports: [ConfigModule],
@@ -16,6 +19,7 @@ import { ItemsModule } from "./items/items.module";
       inject: [ConfigService],
     }),
     ItemsModule,
+    ContactModule,
   ],
 })
 export class AppModule {}
