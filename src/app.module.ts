@@ -3,7 +3,8 @@ import { MongooseModule } from "@nestjs/mongoose";
 import { ConfigModule, ConfigService } from "@nestjs/config";
 
 import { ItemsModule } from "./items/items.module";
-import { ContactModule } from "./contact.module";
+import { ContactModule } from "contact.module";
+
 
 @Module({
   imports: [
