@@ -16,3 +16,18 @@
 .env.development
 .env.production
 
+# logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# build / testing outputs
+/dist
+/build
+/coverage
+
+# OS / Editor files
+.DS_Store
+.vscode/
+.idea/
