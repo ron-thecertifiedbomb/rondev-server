@@ -11,6 +11,9 @@ const common_1 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
 const config_1 = require("@nestjs/config");
 const items_module_1 = require("./items/items.module");
+const posts_module_1 = require("./blog/post/posts.module");
+const upload_module_1 = require("./blog/uploadImage/upload.module");
+const app_controller_1 = require("./app.controller");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -24,11 +27,15 @@ exports.AppModule = AppModule = __decorate([
                 imports: [config_1.ConfigModule],
                 useFactory: async (configService) => ({
                     uri: configService.get("MONGO_URI"),
+                    dbName: "blogs",
                 }),
                 inject: [config_1.ConfigService],
             }),
             items_module_1.ItemsModule,
+            posts_module_1.PostsModule,
+            upload_module_1.UploadModule,
         ],
+        controllers: [app_controller_1.AppController],
     })
 ], AppModule);
 //# sourceMappingURL=app.module.js.map

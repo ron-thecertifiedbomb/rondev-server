@@ -3,8 +3,9 @@ import { MongooseModule } from "@nestjs/mongoose";
 import { ConfigModule, ConfigService } from "@nestjs/config";
 import { ItemsModule } from "@/items/items.module";
 import { PostsModule } from "@/blog/post/posts.module";
-import { UploadModule } from "./blog/uploadImage/upload.module";
-import { AppController } from "./app.controller";
+import { UploadModule } from "@/blog/uploadImage/upload.module";
+import { AppController } from "@/app.controller";
+
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { AppController } from "./app.controller";
     ItemsModule,
     PostsModule,
     UploadModule,
+
   ],
   controllers: [AppController],
 })
