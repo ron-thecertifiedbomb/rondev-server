@@ -1,6 +1,7 @@
 import { Body, Controller, Get, Post } from "@nestjs/common";
 import { PostsService } from "./posts.service";
-import { CreatePostDto } from "./create-post.dto";
+import { CreatePostDto } from "create-post.dto";
+
 
 @Controller("api/posts")
 export class PostsController {
