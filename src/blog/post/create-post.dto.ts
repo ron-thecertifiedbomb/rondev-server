@@ -16,4 +16,8 @@ export class CreatePostDto {
   @IsArray()
   @IsOptional()
   tags?: string[];
+
+  @IsString()
+  @IsOptional()
+  coverImage?: string;
 }

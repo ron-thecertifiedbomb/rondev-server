@@ -16,6 +16,9 @@ export class Post {
 
   @Prop([String])
   tags: string[];
+
+  @Prop()
+  coverImage?: string;
 }
 
 export const PostSchema = SchemaFactory.createForClass(Post);
