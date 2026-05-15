@@ -4,10 +4,12 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { ItemsService } from './items.service';
 import { ItemsController } from './items.controller';
 import { Item, ItemSchema } from './schemas/item.schema';
+import { CloudinaryModule } from '../blog/uploadImage/cloudinary.module';
 
 @Module({
   imports: [
     MongooseModule.forFeature([{ name: Item.name, schema: ItemSchema }]),
+    CloudinaryModule,
   ],
   controllers: [ItemsController],
   providers: [ItemsService],

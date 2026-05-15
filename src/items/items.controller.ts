@@ -1,24 +1,34 @@
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Put,
+  Delete,
+  UseInterceptors,
+  UploadedFiles,
+  BadRequestException,
+} from "@nestjs/common";
+import { AnyFilesInterceptor } from "@nestjs/platform-express";
+import { ItemsService } from "./items.service";
+import { CloudinaryService } from "../blog/uploadImage/cloudinary.service";
 
-import { Controller, Get, Post, Body, Param, Put, Delete, UseInterceptors, UploadedFiles, BadRequestException } from '@nestjs/common';
-import { AnyFilesInterceptor } from '@nestjs/platform-express';
-import { ItemsService } from './items.service';
-// import { UploadService } from '../upload/upload.service';
-
-@Controller('items')
+@Controller("items")
 export class ItemsController {
   constructor(
     private readonly service: ItemsService,
-    // private readonly uploadService: UploadService
+    private readonly cloudinaryService: CloudinaryService,
   ) {}
 
   @Post()
   @UseInterceptors(AnyFilesInterceptor())
   async create(
-    @Body('blocks') blocksString: string,
-    @UploadedFiles() files: Array<Express.Multer.File>
+    @Body("blocks") blocksString: string,
+    @UploadedFiles() files: Array<Express.Multer.File>,
   ) {
     if (!blocksString) {
-      throw new BadRequestException('Content blocks are required');
+      throw new BadRequestException("Content blocks are required");
     }
 
     const blocks = JSON.parse(blocksString);
@@ -26,15 +36,19 @@ export class ItemsController {
     // We use Promise.all here because mapping over an array with async functions returns an array of Promises
     const processedBlocks = await Promise.all(
       blocks.map(async (block, index) => {
-        if (block.type === 'image') {
-          const file = files.find(f => f.fieldname === `file_${index}`);
+        if (block.type === "image") {
+          const file = files.find((f) => f.fieldname === `file_${index}`);
           if (file) {
-            // const fileUrl = await this.uploadService.uploadImage(file);
-            return { ...block, fileUrl: 'https://placeholder-url.com/image.jpg' }; // replace with actual fileUrl
+            // Use your existing CloudinaryService which resolves with the Cloudinary result object
+            const result = await this.cloudinaryService.uploadImage(file);
+            return {
+              ...block,
+              fileUrl: result.secure_url, // Get the secure URL from the response
+            };
           }
         }
         return block;
-      })
+      }),
     );
 
     // Saves the item to your MongoDB database via ItemsService
@@ -46,18 +60,18 @@ export class ItemsController {
     return this.service.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
+  @Get(":id")
+  findOne(@Param("id") id: string) {
     return this.service.findOne(id);
   }
 
-  @Put(':id')
-  update(@Param('id') id: string, @Body() body) {
+  @Put(":id")
+  update(@Param("id") id: string, @Body() body) {
     return this.service.update(id, body);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
+  @Delete(":id")
+  remove(@Param("id") id: string) {
     return this.service.remove(id);
   }
 }

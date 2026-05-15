@@ -3,11 +3,9 @@ import { MongooseModule } from "@nestjs/mongoose";
 import { ConfigModule, ConfigService } from "@nestjs/config";
 import { ItemsModule } from "@/items/items.module";
 import { PostsModule } from "@/blog/post/posts.module";
-import { UploadModule } from "@/blog/uploadImage/upload.module";
 import { AppController } from "@/app.controller";
 import { ContactModule } from "./contact/contact.module";
-
-
+import { CloudinaryModule } from "./blog/uploadImage/cloudinary.module";
 
 @Module({
   imports: [
@@ -25,8 +23,8 @@ import { ContactModule } from "./contact/contact.module";
     }),
     ItemsModule,
     PostsModule,
-    UploadModule,
     ContactModule,
+    CloudinaryModule,
   ],
   controllers: [AppController],
 })
