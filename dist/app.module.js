@@ -14,6 +14,7 @@ const items_module_1 = require("./items/items.module");
 const posts_module_1 = require("./blog/post/posts.module");
 const upload_module_1 = require("./blog/uploadImage/upload.module");
 const app_controller_1 = require("./app.controller");
+const contact_module_1 = require("./contact/contact.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -22,6 +23,7 @@ exports.AppModule = AppModule = __decorate([
         imports: [
             config_1.ConfigModule.forRoot({
                 envFilePath: ".env.local",
+                isGlobal: true,
             }),
             mongoose_1.MongooseModule.forRootAsync({
                 imports: [config_1.ConfigModule],
@@ -34,6 +36,7 @@ exports.AppModule = AppModule = __decorate([
             items_module_1.ItemsModule,
             posts_module_1.PostsModule,
             upload_module_1.UploadModule,
+            contact_module_1.ContactModule,
         ],
         controllers: [app_controller_1.AppController],
     })

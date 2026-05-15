@@ -5,6 +5,7 @@ import { ItemsModule } from "@/items/items.module";
 import { PostsModule } from "@/blog/post/posts.module";
 import { UploadModule } from "@/blog/uploadImage/upload.module";
 import { AppController } from "@/app.controller";
+import { ContactModule } from "./contact/contact.module";
 
 
 @Module({
@@ -24,7 +25,7 @@ import { AppController } from "@/app.controller";
     ItemsModule,
     PostsModule,
     UploadModule,
-
+    ContactModule,
   ],
   controllers: [AppController],
 })
